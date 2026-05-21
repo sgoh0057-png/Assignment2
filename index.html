@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>One Country, Different Games</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header class="hero">
+    <h1>One Country, Different Games</h1>
+    <p>How organised sport participation differs across Australian age groups and gender.</p>
+  </header>
+
+  <main>
+
+    <section class="section">
+      <h2>Sport participation changes with age</h2>
+      <p>
+        Younger Australians participate more strongly in team sports such as basketball,
+        soccer, AFL and cricket, while some sports remain more stable across adulthood.
+      </p>
+      <div id="age_lines" class="chart"></div>
+    </section>
+
+    <section class="section">
+      <h2>Which age groups are most active in each sport?</h2>
+      <p>
+        This heatmap shows the intensity of participation across six selected organised sports.
+      </p>
+      <div id="age_heatmap" class="chart"></div>
+    </section>
+
+    <section class="section">
+      <h2>Gender divide in sport participation</h2>
+      <p>
+        Some sports show strong gender differences, with AFL and cricket leaning male,
+        while netball is strongly female.
+      </p>
+      <div id="gender_bar" class="chart"></div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Data source: AusPlay, Australian Sports Commission. Created by Gina, 2026.</p>
+  </footer>
+
+  <script>
+    vegaEmbed("#age_lines", "age_lines.vg.json").catch(console.error);
+    vegaEmbed("#age_heatmap", "age_heatmap.vg.json").catch(console.error);
+    vegaEmbed("#gender_bar", "gender_diverging_bar.vg.json").catch(console.error);
+  </script>
+
+</body>
+</html>
