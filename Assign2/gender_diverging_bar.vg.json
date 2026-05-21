@@ -1,0 +1,53 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Gender comparison of sport participation.",
+  "data": {"url": "age_sport.csv"},
+
+  "transform": [
+    {
+      "fold": ["Males", "Females"],
+      "as": ["Gender", "ParticipationText"]
+    },
+    {
+      "calculate": "toNumber(replace(datum.ParticipationText, '%', ''))",
+      "as": "ParticipationRate"
+    },
+    {
+      "calculate": "datum.Gender == 'Males' ? -datum.ParticipationRate : datum.ParticipationRate",
+      "as": "SignedRate"
+    }
+  ],
+
+  "mark": "bar",
+
+  "encoding": {
+    "y": {
+      "field": "Sport",
+      "type": "nominal",
+      "title": "Sport"
+    },
+    "x": {
+      "field": "SignedRate",
+      "type": "quantitative",
+      "title": "Participation rate (%)"
+    },
+    "color": {
+      "field": "Gender",
+      "type": "nominal",
+      "scale": {
+        "domain": ["Males", "Females"],
+        "range": ["#4C78A8", "#E4579A"]
+      },
+      "title": "Gender"
+    },
+    "tooltip": [
+      {"field": "Sport"},
+      {"field": "Gender"},
+      {
+        "field": "ParticipationRate",
+        "title": "Participation rate (%)",
+        "format": ".1f"
+      }
+    ]
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": 400,
+  "height": 400,
+   "title": {
+    "text": "Sport participation changes with age",
+    "subtitle": "Participation rate by age group for six organised sports in Australia"},
+  "description": "Heatmap of sport participation by age group.",
+  "data": {
+    "url": "age_sport.csv"
+  },
+
+  "transform": [
+    {
+      "fold": [
+        "15-17",
+        "18-24",
+        "25-34",
+        "35-44",
+        "45-54",
+        "55-64",
+        "65+"
+      ],
+      "as": ["AgeGroup", "ParticipationText"]
+    },
+    {
+      "calculate": "toNumber(replace(datum.ParticipationText, '%', ''))",
+      "as": "ParticipationRate"
+    }
+  ],
+
+  "mark": "rect",
+
+  "encoding": {
+    "x": {
+      "field": "Sport",
+      "type": "nominal",
+      "title": "Sport"
+    },
+    "y": {
+      "field": "AgeGroup",
+      "type": "ordinal",
+      "sort": ["15-17", "18-24", "25-34", "35-44", "45-54", "55-64", "65+"],
+      "title": "Age group"
+    },
+    "color": {
+      "field": "ParticipationRate",
+      "type": "quantitative",
+      "title": "Participation rate (%)"
+    },
+    "tooltip": [
+      {"field": "Sport"},
+      {"field": "AgeGroup", "title": "Age group"},
+      {"field": "ParticipationRate", "title": "Participation rate (%)", "format": ".1f"}
+    ]
+  }
+}
